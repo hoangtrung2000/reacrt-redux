@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
+import "./App.scss";
+import React, { Suspense } from "react";
+import NotFound from "./components/NotFound";
+import Header from "./features/Photo/components/Header";
+
+// Lazy Loading - Code Splitting
+const Photo = React.lazy(() => import("./features/Photo"));
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <BrowserRouter>
+          <Header />
+
+          <Routes>
+            <Route path="/photos/*" element={<Photo />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="/" element={<Navigate to="/photos" replace />} />
+          </Routes>
+        </BrowserRouter>
+      </Suspense>
     </div>
   );
 }
