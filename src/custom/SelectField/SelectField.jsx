@@ -4,7 +4,7 @@ import { FormFeedback, FormGroup, Label } from "reactstrap";
 import Select from "react-select";
 import { ErrorMessage } from "formik";
 function SelectField(props) {
-  const { label, field, form, placeholder, disabled, options } = props;
+  const { label, field, form, placeholder, isDisabled, options } = props;
   const { name, value } = field;
   const { errors, touched } = form;
   const showError = errors[name] && touched[name];
@@ -28,7 +28,7 @@ function SelectField(props) {
         value={selectedValue}
         onChange={handleSelectedOptionsChange}
         onBlur={() => form.setFieldTouched(name, true)}
-        disabled={disabled}
+        isDisabled={isDisabled}
         options={options}
         placeholder={placeholder}
         className={showError ? "is-invalid" : ""}
@@ -43,14 +43,14 @@ SelectField.propTypes = {
   form: PropTypes.object.isRequired, // FastFiled formik props
   label: PropTypes.string,
   placeholder: PropTypes.string,
-  disabled: PropTypes.bool,
+  isDisabled: PropTypes.bool,
   options: PropTypes.array,
 };
 
 SelectField.defaultProp = {
   label: "",
   placeholder: "",
-  disabled: false,
+  isDisabled: false,
   options: [],
 };
 

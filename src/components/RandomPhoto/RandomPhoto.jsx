@@ -4,8 +4,14 @@ import "./RandomPhoto.scss";
 import { Button } from "reactstrap";
 
 function RandomPhoto(props) {
-  const { name, imageUrl, onRandomButtonBlur, onImageUrlChange, classNames } =
-    props;
+  const {
+    name,
+    imageUrl,
+    onRandomButtonBlur,
+    onImageUrlChange,
+    classNames,
+    disabled,
+  } = props;
   const getRandomImageUrl = () => {
     const randomId = Math.trunc(Math.random() * 200);
     return `https://picsum.photos/id/${randomId}/300/300`;
@@ -25,6 +31,7 @@ function RandomPhoto(props) {
           color="primary"
           onBlur={onRandomButtonBlur}
           onClick={handleRandomPhotoClick}
+          disabled={disabled}
         >
           Random a photo
         </Button>
@@ -41,6 +48,7 @@ function RandomPhoto(props) {
 RandomPhoto.propTypes = {
   name: PropTypes.string,
   imageUrl: PropTypes.string,
+  disabled: PropTypes.bool,
   onImageUrlChange: PropTypes.func,
   onRandomButtonBlur: PropTypes.func,
 };
@@ -48,6 +56,7 @@ RandomPhoto.propTypes = {
 RandomPhoto.defaultProps = {
   name: "",
   imageUrl: "",
+  disabled: false,
   onImageUrlChange: null,
   onRandomButtonBlur: null,
 };
