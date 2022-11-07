@@ -8,11 +8,7 @@ import { PHOTO_CATEGORY_OPTIONS } from "constants/global";
 import RandomPhotoField from "custom/RandomPhotoField";
 import * as Yup from "yup";
 function PhotoForm(props) {
-  const initialValues = {
-    title: "", // undefined = uncontrolled component
-    categoryId: null,
-    photo: "",
-  };
+  const { initialValues, onSubmit, isAddMode } = props;
 
   const basicSchema = Yup.object().shape({
     title: Yup.string().required("This field is required"),
@@ -27,7 +23,7 @@ function PhotoForm(props) {
     <Formik
       initialValues={initialValues}
       validationSchema={basicSchema}
-      onSubmit={props.onSubmit}
+      onSubmit={onSubmit}
     >
       {({ values, errors, touched, isSubmitting }) => {
         return (
@@ -55,9 +51,9 @@ function PhotoForm(props) {
             />
 
             <FormGroup>
-              <Button type="submit" color="primary">
+              <Button type="submit" color={isAddMode ? "primary" : "success"}>
                 {isSubmitting && <Spinner size="sm" />}
-                Add to album
+                {isAddMode ? "Add to album" : "Update your photo "}
               </Button>
             </FormGroup>
           </Form>
@@ -68,11 +64,15 @@ function PhotoForm(props) {
 }
 
 PhotoForm.propTypes = {
+  initialValues: PropTypes.object,
   onSubmit: PropTypes.func,
+  isAddMode: PropTypes.bool,
 };
 
 PhotoForm.defaultProps = {
+  initialValues: {},
   onSubmit: null,
+  isAddMode: true,
 };
 
 export default PhotoForm;

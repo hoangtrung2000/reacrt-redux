@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./RandomPhoto.scss";
 import { Button } from "reactstrap";
+import { randomNumber } from "utils/common";
 
 function RandomPhoto(props) {
   const {
@@ -13,7 +14,7 @@ function RandomPhoto(props) {
     disabled,
   } = props;
   const getRandomImageUrl = () => {
-    const randomId = Math.trunc(Math.random() * 200);
+    const randomId = randomNumber(2000, 4000);
     return `https://picsum.photos/id/${randomId}/300/300`;
   };
   const handleRandomPhotoClick = async () => {
@@ -38,7 +39,11 @@ function RandomPhoto(props) {
       </div>
       <div className="random-photo__photo">
         {imageUrl && (
-          <img src={imageUrl} alt="Oops... Not found, please click again" />
+          <img
+            src={imageUrl}
+            alt="Oops... Not found, please click again"
+            onError={handleRandomPhotoClick}
+          />
         )}
       </div>
     </div>

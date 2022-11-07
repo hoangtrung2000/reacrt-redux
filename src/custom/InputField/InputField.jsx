@@ -5,7 +5,7 @@ import { ErrorMessage } from "formik";
 
 function InputField(props) {
   const { field, form, label, placeholder, type, disabled } = props;
-  const { name } = field;
+  const { name } = field; // filed{name, value,onChange, onBlur}
   const { errors, touched } = form;
   const showError = errors[name] && touched[name];
   return (
